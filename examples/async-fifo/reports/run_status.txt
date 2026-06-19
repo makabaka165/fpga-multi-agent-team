@@ -1,0 +1,6 @@
+﻿vivado_version: 2024.2
+target_part: xc7a35tcsg324-1
+behavioral_simulation: passed
+synthesis: passed
+implementation: passed
+

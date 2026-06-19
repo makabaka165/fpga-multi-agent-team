@@ -1,0 +1,32 @@
+# Vivado generated state
+.Xil/
+*.jou
+*.str
+*.wdb
+*.vcd
+*.fst
+*.vvp
+*.dcp
+*.bit
+*.ltx
+*.rpt.backup
+
+# Regenerated example build output
+examples/async-fifo/build/
+
+# Common generated project folders
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+*.runs/
+*.gen/
+
+# Local packaging
+*.zip
+
+# Local editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini

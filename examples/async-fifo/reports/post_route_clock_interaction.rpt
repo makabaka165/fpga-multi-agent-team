@@ -1,0 +1,27 @@
+﻿Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
+| Date         : Fri Jun 19 08:35:01 2026
+| Host         : Aurora running 64-bit major release  (build 9200)
+| Command      : report_clock_interaction -file examples/async-fifo/reports/post_route_clock_interaction.rpt
+| Design       : async_fifo
+| Device       : 7a35t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Interaction Report
+
+Clock Interaction Table
+-----------------------
+
+                            WNS                            TNS Failing  TNS Total    WNS Path         Clock-Pair           Inter-Clock          
+From Clock    To Clock      Clock Edges  WNS(ns)  TNS(ns)    Endpoints    Endpoints  Requirement(ns)  Classification       Constraints          
+------------  ------------  -----------  -------  -------  -----------  -----------  ---------------  -------------------  -------------------  
+rd_clk        rd_clk        rise - rise    10.96     0.00            0           31            14.00  Clean                Timed                
+rd_clk        wr_clk                                                 0            5                   Ignored              Asynchronous Groups  
+wr_clk        rd_clk                                                 0           13                   Ignored              Asynchronous Groups  
+wr_clk        wr_clk        rise - rise     6.39     0.00            0           75            10.00  Clean                Timed                
+
+
+

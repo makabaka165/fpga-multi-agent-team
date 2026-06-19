@@ -1,0 +1,20 @@
+﻿Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
+| Date         : Fri Jun 19 08:34:35 2026
+| Host         : Aurora running 64-bit major release  (build 9200)
+| Command      : report_cdc -file examples/async-fifo/reports/cdc.rpt
+| Design       : async_fifo
+| Device       : 7a35t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+CDC Report
+
+Severity  Source Clock  Destination Clock  CDC Type                 Exceptions           Endpoints  Safe  Unsafe  Unknown  No ASYNC_REG  
+--------  ------------  -----------------  -----------------------  -------------------  ---------  ----  ------  -------  ------------  
+Warning   wr_clk        rd_clk             No Common Primary Clock  Asynch Clock Groups         13    13       0        0             0  
+Warning   rd_clk        wr_clk             No Common Primary Clock  Asynch Clock Groups          5     5       0        0             0  
+
+

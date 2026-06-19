@@ -1,0 +1,4 @@
+interface:
+  display_name: "FPGA Multi-Agent Team"
+  short_description: "Orchestrated AI hardware team for FPGA RTL, verification, Vivado checks, and timing closure"
+  default_prompt: "Use this skill to run an Orchestrator-led FPGA multi-agent workflow. Sequentially coordinate requirements, architecture, RTL, verification, constraints, Vivado checks, CDC/timing analysis, repair iterations, and release handoff. For a reusable async FIFO demo, state parallelism_claim: none unless runtime evidence exists."
