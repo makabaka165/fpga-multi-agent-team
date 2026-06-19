@@ -1,3 +1,7 @@
+<p align="right">
+  <strong>English</strong> | <a href="README.zh-CN.md">简体中文</a>
+</p>
+
 <div align="center">
 
 # FPGA Multi-Agent Team
@@ -124,6 +128,7 @@ For nontrivial FPGA tasks, the skill asks the agent to produce:
 ```text
 .
 ├── README.md
+├── README.zh-CN.md
 ├── LICENSE
 └── skill/
     └── fpga-multi-agent-team/
@@ -159,3 +164,5 @@ Skill is valid!
 ## License
 
 MIT License. See [LICENSE](LICENSE).
+
+MIT is a permissive open-source license: people may use, copy, modify, merge, publish, distribute, sublicense, and sell copies of the project, as long as they keep the copyright and license notice. The software is provided without warranty.
