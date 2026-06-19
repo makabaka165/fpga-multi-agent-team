@@ -1,6 +1,6 @@
 # Multi-Agent FPGA Team
 
-Use this reference when the work benefits from explicit role separation, independent checks, or a reusable demonstration of AI team orchestration.
+Use this reference when the work benefits from explicit role separation, independent checks, or auditable AI team orchestration.
 
 ## Orchestrator Contract
 
@@ -213,11 +213,9 @@ Release Agent
 - Next check:
 ```
 
-## Demonstration Pattern
+## Proof-Oriented Run Pattern
 
-For a multi-agent skill demo, prefer the async FIFO flow in `demo-async-fifo-flow.md`.
-
-Demonstrate:
+When the user asks for proof-oriented validation, document:
 
 1. Natural language requirement.
 2. Agent roster and task split.

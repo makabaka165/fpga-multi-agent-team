@@ -11,9 +11,6 @@
 *.ltx
 *.rpt.backup
 
-# Regenerated example build output
-examples/async-fifo/build/
-
 # Common generated project folders
 *.cache/
 *.hw/

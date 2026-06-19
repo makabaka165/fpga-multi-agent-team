@@ -1,8 +1,28 @@
+<div align="center">
+
 # FPGA Multi-Agent Team
 
-面向 FPGA / Verilog / SystemVerilog 开发的多 Agent 编排式 skill。它把复杂硬件任务拆成需求、架构、RTL、验证、约束、Vivado 检查、时序收敛和发布交接等专业角色，再由 Orchestrator 汇总证据并做工程仲裁。
+**An orchestrated AI workflow for Vivado-focused RTL development, verification, constraints, and timing closure.**
 
-这个项目的重点不是“多个 Agent 必须并行运行”，而是让 FPGA 开发过程具备可审计的团队协作结构：
+![Skill](https://img.shields.io/badge/Skill-FPGA%20Multi--Agent%20Team-2563eb)
+![Workflow](https://img.shields.io/badge/Workflow-Orchestrated%20Agents-0f766e)
+![Vivado](https://img.shields.io/badge/Vivado-2024.x-8b5cf6)
+![License](https://img.shields.io/badge/License-MIT-111827)
+
+</div>
+
+## Overview
+
+FPGA Multi-Agent Team is a local skill for coordinating FPGA engineering work through specialized AI roles. It turns a hardware request into a staged workflow covering requirements, architecture, RTL, verification, constraints, Vivado checks, timing analysis, and release handoff.
+
+The skill is designed around evidence-driven collaboration:
+
+- each role has a clear responsibility;
+- each handoff records inputs, outputs, assumptions, evidence, and risks;
+- the Orchestrator arbitrates findings instead of hiding them;
+- final reports distinguish verified results from residual engineering risk.
+
+## Operating Model
 
 ```text
 coordination_mode: orchestrated-agent-team
@@ -10,136 +30,132 @@ execution_mode: orchestrated-sequential-team
 parallelism_claim: none
 ```
 
-## What It Does
-
-- 将自然语言 FPGA 需求拆成硬件相关 requirement table。
-- 生成或审查 Vivado 友好的 RTL、testbench 和 XDC。
-- 对 CDC、reset、full/empty、timing exception、DRC/methodology warning 做结构化审查。
-- 按角色输出 handoff packet：`Inputs / Outputs / Assumptions / Evidence / Risks`。
-- 生成 Evidence Ledger、Orchestrator 仲裁表和 Traceability Matrix。
-- 用 Vivado/XSim 报告闭环验证，而不是只停留在文字流程。
-
-## Repository Layout
-
-```text
-fpga-multi-agent-team/
-  skill/fpga-multi-agent-team/
-    SKILL.md
-    agents/openai.yaml
-    references/
-  examples/async-fifo/
-    rtl/async_fifo.v
-    tb/tb_async_fifo.v
-    constraints/async_fifo.xdc
-    scripts/run_async_fifo_vivado.tcl
-    reports/
-  docs/
-    design-overview.md
-    orchestrator-final-report.md
+```mermaid
+flowchart LR
+  U[User FPGA Request] --> O[Orchestrator]
+  O --> R[Requirements]
+  R --> A[Architecture]
+  A --> RTL[RTL]
+  RTL --> V[Verification]
+  V --> C[Constraints]
+  C --> X[Vivado Runner]
+  X --> T[Timing Closure]
+  T --> H[Release Handoff]
+  H --> O
 ```
+
+## Agent Roles
+
+| Role | Responsibility | Typical Output |
+| --- | --- | --- |
+| Orchestrator | Scope the task, choose roles, set verification bar, arbitrate findings. | Agent plan, evidence ledger, final handoff |
+| Requirements | Extract clocks, resets, interfaces, widths, throughput, CDC and hardware-changing unknowns. | Requirement table |
+| Architecture | Define module boundaries, datapath, FSM, reset/CDC strategy and verification matrix. | Architecture plan |
+| RTL | Implement or patch Vivado-friendly synthesizable RTL. | RTL changes and integration notes |
+| Verification | Build self-checking tests, scoreboards, timeout guards and edge-case coverage. | Testbench strategy and PASS/FAIL criteria |
+| Constraints | Review clocks, IO, generated clocks, CDC intent and justified timing exceptions. | XDC rationale |
+| Vivado Runner | Select and report simulation, synthesis, implementation, CDC, timing and DRC checks. | Tool evidence |
+| Timing Closure | Classify timing failures before proposing RTL or constraint fixes. | Root cause and fix plan |
+| Release | Summarize ready artifacts, assumptions, checks not run and residual risks. | Engineering handoff |
 
 ## Install
 
-把 `skill/fpga-multi-agent-team/` 复制到支持本地 skills 的 Agent 环境中。兼容环境通常只需要一个包含 `SKILL.md` 的目录：
+Clone the repository:
+
+```powershell
+git clone https://github.com/makabaka165/fpga-multi-agent-team.git
+cd fpga-multi-agent-team
+```
+
+Copy the skill folder into your local skills directory:
+
+```powershell
+Copy-Item -Recurse skill/fpga-multi-agent-team "$env:USERPROFILE\.codex\skills\fpga-multi-agent-team"
+```
+
+The installable skill folder is:
 
 ```text
-fpga-multi-agent-team/
+skill/fpga-multi-agent-team/
   SKILL.md
   agents/openai.yaml
   references/
 ```
 
-示例：
+## Usage
 
-```powershell
-# Codex-style local skills directory example
-Copy-Item -Recurse skill/fpga-multi-agent-team "$env:USERPROFILE\.codex\skills\fpga-multi-agent-team"
-```
-
-也可以把 `skill/fpga-multi-agent-team/` 放到 Qoder、Claude Code 或其他支持本地 skill/instruction 约定的 Agent 项目目录中使用。不同工具的目录名称可能不同，但核心内容是同一个 `SKILL.md` 和 `references/`。
-
-## Quick Start Prompt
+Ask your agent to use the skill by name:
 
 ```text
-使用 fpga-multi-agent-team skill。
-
-按 Orchestrator 编排 Requirements、Architecture、RTL、Verification、Constraints、Vivado Runner、Timing Closure、Release Agent，完成一个异步 FIFO 的开发与验证。
-
-最终报告需要包含：
-- coordination_mode / execution_mode / parallelism_claim
-- Requirements table
-- Architecture plan
-- RTL/testbench/XDC artifacts
-- Evidence Ledger
-- Orchestrator arbitration table
-- Traceability Matrix
-- Vivado/XSim checks actually run
-- residual risks and next checks
+Use the fpga-multi-agent-team skill to review this Verilog module.
+Run the Requirements, Architecture, RTL, Verification, Constraints, Vivado Runner,
+Timing Closure, and Release roles. Include an evidence ledger and residual risks.
 ```
 
-## Included Example: Async FIFO
+For implementation work:
 
-`examples/async-fifo/` 是一个完整 demo，展示从异步 FIFO 需求到 Vivado 证据闭环的流程。
-
-包含文件：
-
-- `rtl/async_fifo.v`
-- `tb/tb_async_fifo.v`
-- `constraints/async_fifo.xdc`
-- `scripts/run_async_fifo_vivado.tcl`
-- `reports/` 下的已捕获 Vivado 报告
-
-已捕获结果：
-
-| Check | Result |
-| --- | --- |
-| XSim simulation | PASS, `writes=177 reads=177` |
-| Synthesis | PASS |
-| Implementation | PASS |
-| CDC | 18 safe endpoints, 0 unsafe, 0 unknown, 0 missing ASYNC_REG |
-| Post-route timing | WNS 6.391 ns, TNS 0.000 ns, WHS 0.116 ns, THS 0.000 ns |
-
-## Re-run Vivado
-
-在安装 Vivado 2024.x 的 Windows 环境中，从仓库根目录运行：
-
-```powershell
-vivado -mode batch -source examples/async-fifo/scripts/run_async_fifo_vivado.tcl -nojournal -log examples/async-fifo/build/vivado_batch.log
+```text
+Use fpga-multi-agent-team to implement this FPGA block.
+Before writing RTL, produce requirements and architecture handoff packets.
+After coding, produce a self-checking verification plan and Vivado check strategy.
 ```
 
-如果 `vivado` 不在 `PATH` 中，可以使用完整路径：
+For timing or constraint work:
 
-```powershell
-& 'E:\Xilinx\Vivado\2024.2\bin\vivado.bat' -mode batch -source examples/async-fifo/scripts/run_async_fifo_vivado.tcl -nojournal -log examples/async-fifo/build/vivado_batch.log
+```text
+Use fpga-multi-agent-team to analyze these Vivado timing reports and XDC constraints.
+Classify the timing paths before proposing any RTL or constraint changes.
 ```
 
-脚本会把可再生工程输出写入 `examples/async-fifo/build/`，不会覆盖仓库中保留的报告快照。
+## What The Skill Produces
 
-## Design Notes
+For nontrivial FPGA tasks, the skill asks the agent to produce:
 
-- Skill 正文使用英文，便于 LLM Agent 稳定执行。
-- README 和说明文档使用中文，便于中文读者快速理解项目目标。
-- 默认多 Agent 证明来自角色分工、隔离输入、独立发现、交接格式、Orchestrator 仲裁和工具验证闭环。
-- 不声明并行执行，除非有运行时间证据。
-- 不声明 board-level signoff，除非提供真实板级 pin、IOSTANDARD、configuration voltage 和 external I/O delay。
+- a requirements table with hardware-changing assumptions;
+- an architecture plan with clock/reset/CDC strategy;
+- RTL, testbench or XDC changes when requested;
+- a verification matrix and PASS/FAIL criteria;
+- Vivado evidence or a clear statement of checks not run;
+- an Orchestrator arbitration table when role findings conflict;
+- a release handoff with residual risks and next checks.
 
-## Documentation
+## Repository Contents
 
-- `docs/design-overview.md`：多 Agent 编排模式、角色职责和边界。
-- `docs/orchestrator-final-report.md`：异步 FIFO demo 的编排验证报告。
-- `examples/async-fifo/reports/vivado-validation-summary.md`：Vivado/XSim 检查摘要。
-- `skill/fpga-multi-agent-team/references/`：skill 执行时按需加载的参考资料。
+```text
+.
+├── README.md
+├── LICENSE
+└── skill/
+    └── fpga-multi-agent-team/
+        ├── SKILL.md
+        ├── agents/
+        │   └── openai.yaml
+        └── references/
+            ├── multi-agent-fpga-team.md
+            ├── multi-agent-evidence-protocol.md
+            ├── vivado-rtl-guidelines.md
+            ├── vivado-xdc-guidelines.md
+            ├── timing-closure.md
+            ├── testbench-patterns.md
+            ├── rtl-patterns.md
+            └── ...
+```
+
+## Design Boundaries
+
+- This skill does not claim parallel execution by default.
+- This skill does not replace Vivado, synthesis, implementation, timing reports, CDC reports or board-level signoff.
+- Timing exceptions must be justified by hardware semantics, not used to suppress real problems.
+- Board readiness requires real pin constraints, I/O standards, configuration voltage and external I/O timing.
 
 ## Validation
 
-当前开源版已通过基础 skill 校验：
+The skill folder has been checked with the standard skill validator:
 
 ```text
 Skill is valid!
 ```
 
-异步 FIFO 示例已保留 Vivado 2024.2 报告快照。该验证是 standalone IP-level validation，不是板级 bitstream readiness 或 board-level timing signoff。
-
 ## License
 
-MIT License. See `LICENSE`.
+MIT License. See [LICENSE](LICENSE).

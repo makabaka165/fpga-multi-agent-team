@@ -1,10 +1,10 @@
-# Async FIFO Demo Flow
+# CDC Async FIFO Guidance
 
-Use this reference for the fixed asynchronous FIFO demonstration scenario. It is a reusable example, not a requirement that every user task must implement an async FIFO.
+Use this reference when the user asks for an asynchronous FIFO, a cross-clock stream buffer, or gray-pointer CDC guidance.
 
-## Demo Requirement
+## Requirement Pattern
 
-Build an asynchronous FIFO for crossing a byte stream from a write clock domain into an unrelated read clock domain.
+Build an asynchronous FIFO for crossing a data stream from a write clock domain into an unrelated read clock domain.
 
 Default assumptions when the user does not specify otherwise:
 
@@ -35,12 +35,12 @@ Use this table shape:
 
 | Item | Value | Source | Assumption? | Impact if wrong |
 | --- | --- | --- | --- | --- |
-| Data width | 8-bit default via `DATA_WIDTH` | Demo default | Yes | Interface width and scoreboard data type change |
-| FIFO depth | 16 entries via `ADDR_WIDTH=4` | Demo default | Yes | Pointer width, full/empty behavior, memory size change |
-| Clock relation | `wr_clk` and `rd_clk` asynchronous | Demo goal | No | Determines CDC structure and XDC clock grouping |
-| Reset style | Synchronous active-high per domain | Demo default | Yes | RTL reset blocks and integration reset polarity change |
-| Overflow behavior | Ignore writes while `full` | Demo default | Yes | Testbench expected behavior changes |
-| Underflow behavior | Hold data and ignore reads while `empty` | Demo default | Yes | Testbench expected behavior changes |
+| Data width | Project-defined via `DATA_WIDTH` | User/project | Maybe | Interface width and scoreboard data type change |
+| FIFO depth | Project-defined via `ADDR_WIDTH` | User/project | Maybe | Pointer width, full/empty behavior, memory size change |
+| Clock relation | `wr_clk` and `rd_clk` asynchronous | Design goal | No | Determines CDC structure and XDC clock grouping |
+| Reset style | Project-defined per domain | User/project | Maybe | RTL reset blocks and integration reset polarity change |
+| Overflow behavior | Ignore writes while `full`, unless specified otherwise | Conservative default | Yes | Testbench expected behavior changes |
+| Underflow behavior | Hold data and ignore reads while `empty`, unless specified otherwise | Conservative default | Yes | Testbench expected behavior changes |
 
 Ask the user only if reset polarity, depth, interface semantics, or first-word fall-through behavior must match an existing project.
 

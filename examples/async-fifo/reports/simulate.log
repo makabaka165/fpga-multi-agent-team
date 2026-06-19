@@ -1,4 +1,0 @@
-﻿Time resolution is 1 ps
-PASS: async FIFO self-check completed writes=177 reads=177
-$finish called at time : 6702 ns : File "examples/async-fifo/tb/tb_async_fifo.v" Line 246
-

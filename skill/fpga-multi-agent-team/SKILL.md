@@ -1,6 +1,6 @@
 ---
 name: fpga-multi-agent-team
-description: Multi-agent FPGA development and verification workflow for Vivado-focused Verilog/SystemVerilog projects. Use when Codex needs to orchestrate an AI hardware team to turn requirements into RTL, testbenches, constraints, simulation/synthesis/implementation checks, CDC analysis, timing debug, repair iterations, and final engineering handoff for FPGA modules or projects, especially CDC-heavy examples such as asynchronous FIFO development.
+description: Multi-agent FPGA development and verification workflow for Vivado-focused Verilog/SystemVerilog projects. Use when Codex needs to orchestrate an AI hardware team to turn requirements into RTL, testbenches, constraints, simulation/synthesis/implementation checks, CDC analysis, timing debug, repair iterations, and final engineering handoff for FPGA modules or projects.
 ---
 
 # FPGA Multi-Agent Development Team
@@ -19,9 +19,9 @@ This skill is ready to run as `SKILL.md` inside a compatible skill directory. Ke
 
 ## Team Operating Model
 
-Load `references/multi-agent-fpga-team.md` for complex FPGA tasks, reusable demonstrations, project bring-up, verification-heavy requests, timing/debug work, or any request that benefits from explicit role handoffs. If the task is small, collapse the team into a single response but keep the same checkpoints: requirements, architecture, RTL, verification, constraints, implementation evidence, and risks.
+Load `references/multi-agent-fpga-team.md` for complex FPGA tasks, project bring-up, verification-heavy requests, timing/debug work, or any request that benefits from explicit role handoffs. If the task is small, collapse the team into a single response but keep the same checkpoints: requirements, architecture, RTL, verification, constraints, implementation evidence, and risks.
 
-Load `references/demo-async-fifo-flow.md` when the user asks for a fixed sample scenario, a CDC-heavy example, or an async FIFO deliverable.
+Load `references/cdc-async-fifo-guidance.md` when the user asks for an asynchronous FIFO, cross-clock stream buffering, or gray-pointer CDC guidance.
 
 Load `references/multi-agent-evidence-protocol.md` when the user asks to prove, validate, or document the multi-agent nature of the work.
 
@@ -86,9 +86,9 @@ When agents disagree, prefer evidence in this order: passing simulation with rel
 
 ## Reference Map
 
-- `references/multi-agent-fpga-team.md`: Role definitions, handoff artifacts, review gates, and demonstration workflow for FPGA multi-agent orchestration.
+- `references/multi-agent-fpga-team.md`: Role definitions, handoff artifacts, review gates, and workflow structure for FPGA multi-agent orchestration.
 - `references/multi-agent-evidence-protocol.md`: Proof protocol for orchestrated multi-agent collaboration, isolated role inputs, evidence ledgers, arbitration, traceability matrices, and explicit parallelism claims.
-- `references/demo-async-fifo-flow.md`: Fixed async FIFO scenario with agent handoffs, RTL focus points, verification matrix, CDC/XDC guidance, Vivado check path, and release summary pattern.
+- `references/cdc-async-fifo-guidance.md`: Async FIFO and gray-pointer CDC guidance for cross-clock stream buffering tasks.
 - `references/vivado-rtl-guidelines.md`: Vivado-friendly RTL, reset, RAM/DSP/register inference, CDC attributes, synthesis safety.
 - `references/vivado-xdc-guidelines.md`: XDC clocks, IO, generated clocks, async groups, false paths, multicycle paths, pin safety.
 - `references/timing-closure.md`: How to interpret timing reports and choose RTL/constraint fixes.
@@ -101,4 +101,4 @@ When agents disagree, prefer evidence in this order: passing simulation with rel
 
 For RTL changes, include which agents contributed, what changed, assumptions, and how it was checked. For generated modules, include a minimal instantiation example or integration note when useful. For timing or constraint changes, include the report symptom, chosen fix, and why it is a real hardware fix rather than a hidden exception.
 
-For demo or documentation use, produce a concise practice narrative: user request, team roster, role handoffs, generated artifacts, verification evidence, one debug iteration if available, and final result.
+For documentation or release handoff use, produce a concise engineering narrative: user request, team roster, role handoffs, generated artifacts, verification evidence, one debug iteration if available, and final result.
