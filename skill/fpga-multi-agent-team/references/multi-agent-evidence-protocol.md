@@ -2,6 +2,8 @@
 
 Use this reference when the work must prove orchestrated multi-agent collaboration rather than merely present informal role sections.
 
+For FPGA work, the proof should connect role outputs to engineering artifacts and tool evidence. A strong result shows how the team moved from requirements to RTL/testbench/XDC and then to simulator or Vivado reports, while preserving residual risks such as missing board constraints or checks not run.
+
 ## Proof Standard
 
 A strong multi-agent orchestration proof needs all of the following:
@@ -14,7 +16,7 @@ A strong multi-agent orchestration proof needs all of the following:
 - Final traceability matrix linking requirements, agent outputs, artifacts, evidence, and residual risks.
 - A clear `parallelism_claim`. Use `none` unless runtime overlap evidence is available.
 
-The default claim is `execution_mode: orchestrated-sequential-team` and `parallelism_claim: none`. Do not claim parallel execution unless start/end timestamps, run IDs, or UI screenshots prove overlap.
+The default claim is `execution_mode: orchestrated-sequential-team` and `parallelism_claim: none`. Do not claim parallel execution unless runtime logs, start/end timestamps, or run IDs prove overlap.
 
 ## Task Card Template
 
@@ -111,5 +113,6 @@ For demos, reviews, or public documentation, capture:
 - One finding from an agent and the Orchestrator decision.
 - The final traceability matrix.
 - The Vivado/XSim result table when available.
+- The boundary between AI-produced reasoning and tool-produced evidence.
 
 The strongest story is not "many roles were listed" or "agents ran in parallel"; it is "a designed AI team decomposed a complex FPGA problem, specialized agents owned different evidence, one or more agents found concrete risks, the Orchestrator arbitrated them, and tool reports closed the loop."

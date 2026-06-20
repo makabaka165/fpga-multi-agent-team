@@ -1,6 +1,8 @@
 # Multi-Agent FPGA Team
 
-Use this reference when the work benefits from explicit role separation, independent checks, or auditable AI team orchestration.
+Use this reference when FPGA work benefits from explicit role separation, independent checks, or auditable AI team orchestration. It is especially useful when a task spans RTL, testbenches, XDC constraints, Vivado/XSim reports, CDC review, timing analysis, and release handoff.
+
+The core premise is that AI-generated Verilog needs engineering boundaries. Each role should own a specific type of evidence so that plausible code is not mistaken for verified hardware.
 
 ## Orchestrator Contract
 
@@ -11,6 +13,7 @@ The Orchestrator owns task decomposition and final integration. Start by writing
 - Outputs: RTL, testbench, constraints, scripts, reports, review notes, or release notes.
 - Verification bar: the smallest credible check that would make the result trustworthy.
 - Agent plan: which roles will run, in what order, and what each role must hand off.
+- Tool boundary: which results come from AI reasoning and which require simulator/Vivado evidence.
 
 Run the team sequentially by default: the Orchestrator assigns one professional role at a time, records the handoff, and uses the next role to consume the prior artifact. This still counts as a multi-agent workflow when the roles have explicit responsibilities, scoped inputs, separate outputs or findings, and Orchestrator arbitration.
 

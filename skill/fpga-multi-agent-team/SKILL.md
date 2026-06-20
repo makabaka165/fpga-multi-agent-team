@@ -5,17 +5,23 @@ description: Multi-agent FPGA development and verification workflow for Vivado-f
 
 # FPGA Multi-Agent Development Team
 
-Use this skill to run a coordinated FPGA engineering team. Optimize for correct hardware behavior first, then verification confidence, then coding clarity, then timing/resource efficiency. Treat Vivado reports and AMD/Xilinx documentation as the authority for synthesis, constraints, and timing; use lowRISC style guidance for readable RTL; use GateFlow-style planning as the workflow pattern.
+Use this skill to run a coordinated FPGA engineering team. Optimize for correct hardware behavior first, then verification confidence, then coding clarity, then timing/resource efficiency. Prefer project files and measured tool output over generic code generation. Use vendor documentation to verify exact Vivado behavior, XDC semantics, timing analysis, and device-specific details when precision matters.
 
 This skill is ready to run as `SKILL.md` inside a compatible skill directory. Keep private development copies outside installed skill directories when iterating.
 
 ## Source Priority
 
 1. Project files and user requirements.
-2. AMD/Xilinx Vivado 2024.2 guidance: UG901 for synthesis/RTL inference, UG903 for XDC constraints, UG906/UG949 for timing analysis and closure.
-3. lowRISC Verilog Coding Style for formatting, naming, FSM, always-block structure, and readability.
-4. GateFlow-style flows for planning, IP/testbench/lint/sim/synth/pinmap orchestration.
-5. Other public Verilog/SystemVerilog skills only as broad inspiration, never as final authority.
+2. Actual evidence: simulator output, Vivado logs, synthesis/implementation reports, CDC reports, DRC/methodology reports, timing summaries, and board files.
+3. Vendor documentation for exact Vivado/XDC/device behavior when needed.
+4. This skill's bundled references for workflow, role handoffs, RTL style, verification, constraints, timing, and evidence protocols.
+5. Public style guides may inform readability preferences only when attributed; project style overrides generic style.
+
+## Motivation And Boundary
+
+General LLMs can accelerate Verilog/SystemVerilog work, but FPGA code has hardware-specific failure modes that may not appear as syntax errors: unsafe CDC, ambiguous reset release, weak testbenches, incorrect full/empty logic, unjustified timing exceptions, or unverified timing claims.
+
+This skill turns those risks into an Orchestrator-led workflow. It extends the single-assistant FPGA workflow pattern used by `verilog-fpga-assistant` into a multi-agent team: each role owns a slice of the engineering evidence, then the Orchestrator integrates findings and states what is verified versus still assumed.
 
 ## Team Operating Model
 
@@ -92,7 +98,7 @@ When agents disagree, prefer evidence in this order: passing simulation with rel
 - `references/vivado-rtl-guidelines.md`: Vivado-friendly RTL, reset, RAM/DSP/register inference, CDC attributes, synthesis safety.
 - `references/vivado-xdc-guidelines.md`: XDC clocks, IO, generated clocks, async groups, false paths, multicycle paths, pin safety.
 - `references/timing-closure.md`: How to interpret timing reports and choose RTL/constraint fixes.
-- `references/lowrisc-style-adapted.md`: Practical lowRISC-inspired coding style adapted for Vivado FPGA work.
+- `references/rtl-style-guidelines.md`: Local RTL style guidance for readable Verilog/SystemVerilog; project style overrides it.
 - `references/rtl-patterns.md`: Common RTL building blocks and selection rules.
 - `references/testbench-patterns.md`: Simple self-checking Verilog/SystemVerilog testbench patterns.
 - `references/vivado-mcp-workflow.md`: How to use Vivado MCP tools safely with this skill.

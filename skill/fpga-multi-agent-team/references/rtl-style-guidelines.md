@@ -1,6 +1,6 @@
-# lowRISC-Style RTL Adaptation
+# RTL Style Guidelines
 
-Use this reference for readable Verilog/SystemVerilog style. It is adapted for Vivado FPGA work; project conventions override it.
+Use this reference for readable Verilog/SystemVerilog style in Vivado-oriented FPGA projects. Project conventions override these defaults.
 
 ## Naming
 
